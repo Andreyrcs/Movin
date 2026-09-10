@@ -1,0 +1,311 @@
+/* ── Overlay ──────────────────────────────────────── */
+.dialog-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.dialog-overlay.active { display: flex; }
+
+/* ── Dialog ───────────────────────────────────────── */
+.dialog {
+    width: 680px;
+    max-width: 92vw;
+    background: rgba(10, 13, 24, 0.90);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 20px;
+    box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    animation: dialogIn 0.18s ease;
+}
+
+@keyframes dialogIn {
+    from { opacity: 0; transform: scale(0.96) translateY(10px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* ── Header ───────────────────────────────────────── */
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 26px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dialog-header h2 {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0;
+}
+.dialog-header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.dialog-btn-edit {
+    padding: 5px 14px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.50);
+    font-size: 0.80rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+}
+.dialog-btn-edit:hover {
+    border-color: rgba(99, 102, 241, 0.45);
+    background: rgba(99, 102, 241, 0.08);
+    color: rgba(255, 255, 255, 0.85);
+}
+/* Edit button in "Salvar" state */
+.dialog-btn-edit.saving {
+    border-color: rgba(99, 102, 241, 0.50);
+    background: rgba(99, 102, 241, 0.14);
+    color: rgba(255, 255, 255, 0.90);
+}
+
+.dialog-btn-nav,
+.dialog-btn-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.40);
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+}
+.dialog-btn-nav:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.80);
+}
+.dialog-btn-close:hover {
+    border-color: rgba(239, 68, 68, 0.35);
+    background: rgba(239, 68, 68, 0.09);
+    color: rgba(239, 68, 68, 0.85);
+}
+
+/* ── Body / Table ─────────────────────────────────── */
+.dialog-body { padding: 18px 26px 26px; }
+
+.exercise-table-header,
+.exercise-row {
+    display: grid;
+    grid-template-columns: 1fr 64px 90px 72px 130px;
+    align-items: center;
+}
+
+.exercise-table-header {
+    padding: 0 10px 10px;
+    color: rgba(255, 255, 255, 0.28);
+    font-size: 0.70rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 6px;
+}
+
+.exercise-row {
+    padding: 10px 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+.exercise-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Cells ────────────────────────────────────────── */
+.cell-name,
+.cell-val {
+    display: flex;
+    align-items: center;
+}
+.cell-val { justify-content: center; }
+
+.exercise-name {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+.exercise-val {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.86rem;
+    text-align: center;
+}
+
+/* ── Edit-mode inputs ─────────────────────────────── */
+.field-edit { display: none; }
+
+.exercise-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 4px 8px;
+    font-size: 0.86rem;
+    font-family: 'Outfit', sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.exercise-input--small {
+    width: 48px;
+    text-align: center;
+    padding: 4px;
+    -moz-appearance: textfield;
+}
+.exercise-input--small::-webkit-inner-spin-button,
+.exercise-input--small::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.exercise-input:focus {
+    border-color: rgba(99, 102, 241, 0.50);
+    background: rgba(99, 102, 241, 0.06);
+}
+
+/* ── Kg input (always visible) ────────────────────── */
+.exercise-kg {
+    width: 54px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 7px;
+    color: rgba(255, 255, 255, 0.80);
+    text-align: center;
+    padding: 5px 6px;
+    font-size: 0.86rem;
+    font-family: 'Outfit', sans-serif;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    -moz-appearance: textfield;
+}
+.exercise-kg::-webkit-inner-spin-button,
+.exercise-kg::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.exercise-kg:focus {
+    border-color: rgba(99, 102, 241, 0.50);
+    background: rgba(99, 102, 241, 0.06);
+}
+
+/* ── Row actions ──────────────────────────────────── */
+.exercise-row-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+.actions-view {
+    display: flex;
+    gap: 7px;
+}
+.actions-edit { display: none; }
+
+/* ── ✕ button ─────────────────────────────────────── */
+.btn-x {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    border: 1px solid rgba(239, 68, 68, 0.18);
+    background: rgba(239, 68, 68, 0.04);
+    color: rgba(239, 68, 68, 0.30);
+    cursor: pointer;
+    font-size: 0.80rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+}
+.btn-x:hover,
+.btn-x.active {
+    border-color: rgba(239, 68, 68, 0.55);
+    background: rgba(239, 68, 68, 0.13);
+    color: rgba(239, 68, 68, 0.92);
+}
+
+/* ── ✓ button ─────────────────────────────────────── */
+.btn-check {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    border: 1px solid rgba(34, 197, 94, 0.18);
+    background: rgba(34, 197, 94, 0.04);
+    color: rgba(34, 197, 94, 0.30);
+    cursor: pointer;
+    font-size: 0.80rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+}
+.btn-check:hover,
+.btn-check.active {
+    border-color: rgba(34, 197, 94, 0.50);
+    background: rgba(34, 197, 94, 0.12);
+    color: rgba(34, 197, 94, 0.92);
+}
+
+/* ── Excluir button ───────────────────────────────── */
+.btn-delete-exercise {
+    padding: 0 12px;
+    height: 30px;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.28);
+    font-size: 0.76rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+    white-space: nowrap;
+}
+.btn-delete-exercise:hover {
+    border-color: rgba(239, 68, 68, 0.40);
+    background: rgba(239, 68, 68, 0.08);
+    color: rgba(239, 68, 68, 0.80);
+}
+
+/* ── Add exercise button ──────────────────────────── */
+.btn-add-exercise {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    background: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.30);
+    font-size: 0.84rem;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+.btn-add-exercise:hover {
+    border-color: rgba(99, 102, 241, 0.40);
+    background: rgba(99, 102, 241, 0.05);
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Edit mode overrides ──────────────────────────── */
+.dialog.edit-mode .field-view   { display: none; }
+.dialog.edit-mode .field-edit   { display: block; }
+.dialog.edit-mode .cell-val .field-edit { display: flex; justify-content: center; }
+.dialog.edit-mode .actions-view { display: none; }
+.dialog.edit-mode .actions-edit { display: flex; }
+.dialog.edit-mode .btn-add-exercise { display: block; }

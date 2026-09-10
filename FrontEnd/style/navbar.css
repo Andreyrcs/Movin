@@ -1,0 +1,108 @@
+nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    padding: 0px;
+    position: fixed;
+    margin-top: 30px;
+}
+.nav {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+    width: 90%;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    border-radius: 15px;
+    position: relative;
+}
+
+.nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+    border-radius: 50%;
+}
+
+nav .container_nav {
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+nav .container_nav .logo {
+    height: 100%;
+    display: flex;
+}
+nav .container_nav .logo h1 {
+    color: white;
+}
+
+nav .container_nav .logo img {
+    width: 43px;
+}
+
+nav .container_nav .link {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    gap: 20px;
+}
+nav .container_nav .link a{
+    text-decoration: none;
+    color:white;
+}
+
+nav .container_nav .link a.button {
+    width: 110px;
+    height: 30px;
+    display: flex;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+nav .container_nav .link a.button:hover {
+    border-color: rgba(247, 247, 248, 0.5);
+    color: rgba(0, 0, 0, 0.9);
+    background: rgba(255, 254, 254, 0.904);
+    font-weight: bold;
+}
+
+nav .container_nav .link a.active:hover {
+    border-color: rgba(247, 247, 248, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(216, 216, 219, 0.274);
+}
+
+nav .container_nav .link a.active {
+    border-color: rgba(236, 236, 241, 0.6);
+    background: rgba(246, 246, 248, 0.473);
+    color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 0 12px rgba(245, 242, 242, 0.2);
+}
