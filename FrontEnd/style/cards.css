@@ -64,8 +64,12 @@ header section div.cardAdd div.container_add {
     align-items: center;
 }
 header section div.cardAdd div.container_add p {
+     text-decoration: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+a.test{
     text-decoration: none;
-    font-style: normal;
 }
 section div.card div.container_card {
     width: 80%;
@@ -110,4 +114,22 @@ section div.card div.container_card div.button_card button:hover {
         border-color 0.2s ease,
         color 0.2s ease,
         background 0.2s ease;
+}
+
+/* ── Responsivo ─────────────────────────────────────── */
+@media (max-width: 900px) {
+    header section div.card,
+    header section div.cardAdd {
+        width: 220px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 560px) {
+    header section div.card,
+    header section div.cardAdd {
+        width: 100%;
+        max-width: 340px;
+        height: 110px;
+    }
 }

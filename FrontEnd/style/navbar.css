@@ -106,3 +106,29 @@ nav .container_nav .link a.active {
     color: rgba(0, 0, 0, 0.95);
     box-shadow: 0 0 12px rgba(245, 242, 242, 0.2);
 }
+
+/* ── Responsivo ─────────────────────────────────────── */
+@media (max-width: 560px) {
+    nav {
+        margin-top: 16px;
+    }
+    .nav {
+        width: 94%;
+        height: 44px;
+    }
+    nav .container_nav {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+    nav .container_nav .logo img {
+        width: 34px;
+    }
+    nav .container_nav .link {
+        gap: 10px;
+    }
+    nav .container_nav .link a.button {
+        width: 84px;
+        font-size: 0.75rem;
+        height: 26px;
+    }
+}

@@ -31,7 +31,7 @@ header{
     flex-direction:column;
 }
 
-header section{ 
+header section{
 display: grid;
 grid-template-columns: repeat(3, 1fr);
 grid-template-rows: repeat(2, 1fr);
@@ -41,4 +41,29 @@ width:95%;
 height: 80%;
 align-items: center;
     justify-items: center;
+}
+
+/* ── Responsivo ─────────────────────────────────────── */
+@media (max-width: 900px) {
+    header section {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+        gap: 20px;
+        padding: 20px 0;
+    }
+    header {
+        height: auto;
+        padding-bottom: 40px;
+    }
+}
+
+@media (max-width: 560px) {
+    header section {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+    header {
+        padding-top: 80px;
+    }
 }

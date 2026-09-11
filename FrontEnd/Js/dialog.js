@@ -4,14 +4,12 @@ const closeBtn = document.getElementById('dialogClose');
 const editBtn  = document.getElementById('dialogBtnEdit');
 const addExBtn = document.getElementById('btnAddExercise');
 
-// ── Abrir dialog ao clicar no card ────────────────────
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
         overlay.classList.add('active');
     });
 });
 
-// ── Fechar ────────────────────────────────────────────
 closeBtn.addEventListener('click', closeDialog);
 overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeDialog();
@@ -25,7 +23,6 @@ function closeDialog() {
     overlay.classList.remove('active');
 }
 
-// ── Modo edição ───────────────────────────────────────
 let isEditing = false;
 
 editBtn.addEventListener('click', () => {
@@ -41,7 +38,6 @@ editBtn.addEventListener('click', () => {
 });
 
 function saveAndExitEditMode() {
-    // Sincroniza spans com os valores dos inputs ao salvar
     document.querySelectorAll('.exercise-row').forEach(row => {
         const nameSpan  = row.querySelector('.cell-name .field-view');
         const nameInput = row.querySelector('.cell-name .field-edit');
@@ -65,7 +61,6 @@ function exitEditMode() {
     editBtn.classList.remove('saving');
 }
 
-// ── Toggle ✕ / ✓ por linha (radio behavior) ──────────
 document.addEventListener('click', (e) => {
     const isX     = e.target.classList.contains('btn-x');
     const isCheck = e.target.classList.contains('btn-check');
@@ -86,13 +81,11 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ── Excluir linha ─────────────────────────────────────
 document.addEventListener('click', (e) => {
     if (!e.target.classList.contains('btn-delete-exercise')) return;
     e.target.closest('.exercise-row').remove();
 });
 
-// ── Adicionar novo exercício ──────────────────────────
 addExBtn.addEventListener('click', () => {
     const table  = document.querySelector('.exercise-table');
     const newRow = document.createElement('div');
@@ -122,6 +115,5 @@ addExBtn.addEventListener('click', () => {
         </div>
     `;
     table.insertBefore(newRow, addExBtn);
-    // Foca no input do nome do novo exercício
     newRow.querySelector('.exercise-input').focus();
 });
