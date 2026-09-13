@@ -33,12 +33,13 @@ body {
 
 header {
     width: 100%;
-    height: 83.5vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 100px;
     flex-direction: column;
+    padding-bottom: 20px;
 }
 
 header section {
@@ -57,7 +58,7 @@ header section {
 
 header section div.container_new {
     width: 100%;
-    height: 95%;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,9 +68,62 @@ header section div.container_new {
     justify-content: space-between;
 }
 header section div.container_new div.rowtitle {
-    width: 90%;
+    width: 100%;
     display: flex;
     gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+div.container_new div.rowtitle div.first_option {
+    display: flex;
+    gap: 10px;
+}
+
+div.container_new div.rowtitle div.second_option {
+    display: flex;
+    gap: 10px;
+}
+div.container_new div.rowtitle div.second_option div.day_week {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+div.container_new div.rowtitle div.second_option div.day_week div {
+    width: 25px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+div.container_new div.rowtitle div.second_option div.day_week div:hover,
+div.container_new div.rowtitle div.second_option div.day_week div.active {
+    background: rgba(247, 245, 245, 0.907);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: black;
+    cursor: pointer;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
 form.rowinput {
     width: 100%;
@@ -171,10 +225,10 @@ div.new_button_exercise {
 
 div.container_button {
     width: 95%;
-    height: 10rem;
     display: flex;
     justify-content: end;
     gap: 20px;
+    padding-bottom: 10px;
 }
 div.container_button button {
     padding: 5px 14px;
@@ -252,7 +306,7 @@ div.container_button button:hover {
     form.rowinput div.new-table-header {
         gap: 2.2rem;
         padding: 0 14px 10px;
-        font-size: 0.60rem;
+        font-size: 0.6rem;
         letter-spacing: 0.03em;
     }
     form.rowinput div.new-table-header div.row {
