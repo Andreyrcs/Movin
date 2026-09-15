@@ -19,16 +19,9 @@ const BASE_URL = 'http://localhost:3000/api'; // ← trocar pela URL do backend
  * @returns {Promise<Array<{id, titulo, totalExercicios}>>}
  */
 async function getTreinos() {
-    // Mock — remover quando o backend estiver pronto
-    return [
-        { id: 1, titulo: 'Segunda', totalExercicios: 3 },
-    ];
-
-    /* Backend real:
     const res = await fetch(`${BASE_URL}/treinos`);
     if (!res.ok) throw new Error('Erro ao buscar treinos');
     return res.json();
-    */
 }
 
 /**
@@ -39,18 +32,15 @@ async function getTreinos() {
  */
 async function createTreino(data) {
     console.log('[API] createTreino →', data);
-    // Mock
-    return { id: Date.now(), titulo: data.titulo, totalExercicios: data.exercicios.length };
 
-    /* Backend real:
     const res = await fetch(`${BASE_URL}/treinos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
     });
+
     if (!res.ok) throw new Error('Erro ao criar treino');
     return res.json();
-    */
 }
 
 /**
@@ -61,18 +51,15 @@ async function createTreino(data) {
  */
 async function updateTreino(id, data) {
     console.log('[API] updateTreino →', id, data);
-    // Mock
-    return { id, ...data };
 
-    /* Backend real:
     const res = await fetch(`${BASE_URL}/treinos/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
     });
+
     if (!res.ok) throw new Error('Erro ao atualizar treino');
     return res.json();
-    */
 }
 
 /**
@@ -82,14 +69,13 @@ async function updateTreino(id, data) {
  */
 async function deleteTreino(id) {
     console.log('[API] deleteTreino →', id);
-    // Mock
-    return { success: true };
 
-    /* Backend real:
-    const res = await fetch(`${BASE_URL}/treinos/${id}`, { method: 'DELETE' });
+    const res = await fetch(`${BASE_URL}/treinos/${id}`, {
+        method: 'DELETE'
+    });
+
     if (!res.ok) throw new Error('Erro ao deletar treino');
     return res.json();
-    */
 }
 
 // ── EXERCÍCIOS (Linhas dentro do dialog) ────────────────────────
@@ -102,18 +88,10 @@ async function deleteTreino(id) {
  */
 async function getExercicios(treinoId) {
     console.log('[API] getExercicios → treino', treinoId);
-    // Mock — substitua quando o backend responder esses dados
-    return [
-        { id: 1, nome: 'Press Inclinado', series: 3, repeticoes: 10, kg: 60 },
-        { id: 2, nome: 'Rosca Direta',    series: 3, repeticoes: 10, kg: 60 },
-        { id: 3, nome: 'Puxada Frontal',  series: 3, repeticoes: 12, kg: 55 },
-    ];
 
-    /* Backend real:
     const res = await fetch(`${BASE_URL}/treinos/${treinoId}/exercicios`);
     if (!res.ok) throw new Error('Erro ao buscar exercícios');
     return res.json();
-    */
 }
 
 /**
@@ -124,18 +102,15 @@ async function getExercicios(treinoId) {
  */
 async function createExercicio(treinoId, data) {
     console.log('[API] createExercicio → treino', treinoId, data);
-    // Mock
-    return { id: Date.now(), ...data };
 
-    /* Backend real:
     const res = await fetch(`${BASE_URL}/treinos/${treinoId}/exercicios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
     });
+
     if (!res.ok) throw new Error('Erro ao criar exercício');
     return res.json();
-    */
 }
 
 /**
@@ -146,18 +121,15 @@ async function createExercicio(treinoId, data) {
  */
 async function updateExercicio(id, data) {
     console.log('[API] updateExercicio →', id, data);
-    // Mock
-    return { id, ...data };
 
-    /* Backend real:
     const res = await fetch(`${BASE_URL}/exercicios/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
     });
+
     if (!res.ok) throw new Error('Erro ao atualizar exercício');
     return res.json();
-    */
 }
 
 /**
@@ -167,12 +139,11 @@ async function updateExercicio(id, data) {
  */
 async function deleteExercicio(id) {
     console.log('[API] deleteExercicio →', id);
-    // Mock
-    return { success: true };
 
-    /* Backend real:
-    const res = await fetch(`${BASE_URL}/exercicios/${id}`, { method: 'DELETE' });
+    const res = await fetch(`${BASE_URL}/exercicios/${id}`, {
+        method: 'DELETE'
+    });
+
     if (!res.ok) throw new Error('Erro ao deletar exercício');
     return res.json();
-    */
 }
