@@ -14,6 +14,27 @@ const inputTitulo = document.querySelector(
     'input.new_exercice:not(.name):not(.serie):not(.reps):not(.kg)',
 );
 
+// Previne submit acidental com Enter e configura mensagens de validação
+form.addEventListener('submit', (e) => e.preventDefault());
+
+function configurarValidacao(rowEl) {
+    [
+        { sel: 'input.serie', msg: 'Informe o número de séries' },
+        { sel: 'input.reps',  msg: 'Informe o número de repetições' },
+    ].forEach(({ sel, msg }) => {
+        const input = rowEl.querySelector(sel);
+        if (!input) return;
+        input.addEventListener('invalid', () => {
+            input.setCustomValidity(
+                input.validity.rangeUnderflow ? 'O valor mínimo é 1' : msg
+            );
+        });
+        input.addEventListener('input', () => input.setCustomValidity(''));
+    });
+}
+
+configurarValidacao(document.querySelector('form.rowinput .rowtext'));
+
 document.querySelectorAll('.day_week div').forEach((div) => {
     div.addEventListener('click', () => {
         document
@@ -29,9 +50,9 @@ btnAddRow.addEventListener('click', () => {
     rowtext.classList.add('rowtext');
     rowtext.innerHTML = `
         <div class="armazen_input">
-            <input class="name new_exercice" type="text" placeholder="Nome" />
-            <input class="serie new_exercice" type="number" placeholder="0" min="1" />
-            <input class="reps new_exercice" type="number" placeholder="0" min="1" />
+            <input class="name new_exercice" type="text" placeholder="Nome" maxlength="40" />
+            <input class="serie new_exercice" type="number" placeholder="0" min="1" required />
+            <input class="reps new_exercice" type="number" placeholder="0" min="1" required />
             <input class="kg new_exercice" type="number" placeholder="0" min="0" />
         </div>
         <div class="stash_button" title="Remover">
@@ -63,6 +84,7 @@ btnAddRow.addEventListener('click', () => {
                                 </svg>
         </div>
     `;
+    configurarValidacao(rowtext);
     form.appendChild(rowtext);
 });
 
@@ -102,21 +124,24 @@ btnConcluir.addEventListener('click', async () => {
         if (nome) exercicios.push({ nome, series, repeticoes, kg });
     });
 
+    if (!form.reportValidity()) return;
+
     if (exercicios.length === 0) {
         alert('Adicione pelo menos um exercício.');
         return;
     }
 
+    btnConcluir.disabled = true;
+    btnConcluir.textContent = 'Salvando...';
+
     try {
-        // Quando o backend estiver pronto, createTreino() e createExercicio()
-        // de api.js farão as chamadas reais ao banco.
         const treino = await createTreino({ titulo, exercicios });
         console.log('[novoTreino] Treino salvo:', treino);
-
-        // Volta para a home após salvar
         window.location.href = '../index.html';
     } catch (err) {
         console.error('[novoTreino] Erro ao salvar:', err);
         alert('Erro ao salvar o treino. Tente novamente.');
+        btnConcluir.disabled = false;
+        btnConcluir.textContent = 'Concluir';
     }
 });

@@ -9,7 +9,7 @@
 //      os headers necessários nos objetos de configuração do fetch.
 // ================================================================
 
-const BASE_URL = 'http://localhost:3000/api'; // ← trocar pela URL do backend
+const BASE_URL = 'https://curly-space-memory-v6gvvq6r5r4w2wv6j-3000.app.github.dev/api'; // ← trocar pela URL do backend
 
 // ── TREINOS (Cards da home) ──────────────────────────────────────
 

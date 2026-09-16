@@ -424,6 +424,19 @@ pom.xml
 
 Caso as dependências ainda não tenham sido baixadas, atualize/recarregue o Maven.
 
+
+Rodar no VS Code:
+
+Instale a extensão Extension Pack for Java.
+
+Abra a pasta backend, espere o Maven carregar as dependências, abra Main.java e clique em Run.
+
+Quando aparecer:
+Servidor iniciado na porta 3000.
+
+
+a API estará rodando em:
+http://localhost:3000/api/treinos
 ---
 
 ## 5. Executar
@@ -903,3 +916,334 @@ Para executar o backend:
 ```
 
 Com o backend iniciado, o frontend pode acessar normalmente as rotas da API através da porta `3000`.
+
+---
+
+# Movin - Frontend
+
+Frontend do projeto Movin, desenvolvido com HTML, CSS e JavaScript puro.
+
+A ideia foi manter a mesma simplicidade do backend, sem frameworks ou bibliotecas externas, fazendo a comunicação com a API diretamente pelo JavaScript.
+
+Tecnologias utilizadas
+
+- HTML5
+- CSS3
+- JavaScript (vanilla)
+
+Não foi utilizado React, Vue, Angular ou outro framework de frontend.
+
+---
+
+## Estrutura do frontend
+
+O frontend foi separado da seguinte forma:
+
+```text
+FrontEnd/
+├── index.html
+├── src/
+│   └── NovoTreino.html
+├── style/
+│   ├── index.css
+│   ├── navbar.css
+│   ├── cards.css
+│   ├── dialog.css
+│   └── plano.css
+├── Js/
+│   ├── api.js
+│   ├── Cards.js
+│   ├── dialog.js
+│   └── novoTreino.js
+└── Img/
+    └── logo movin.png
+```
+
+---
+
+## Como o frontend funciona
+
+O frontend segue uma estrutura simples:
+
+```text
+Usuário
+   ↓
+HTML (página)
+   ↓
+JavaScript
+   ↓
+api.js (fetch)
+   ↓
+Backend (API REST)
+```
+
+E para exibir os dados:
+
+```text
+Backend
+   ↓
+api.js
+   ↓
+JavaScript
+   ↓
+DOM atualizado
+   ↓
+Usuário vê os dados
+```
+
+Cada arquivo JavaScript possui uma responsabilidade diferente.
+
+---
+
+## Páginas
+
+O projeto possui duas páginas principais.
+
+### index.html
+
+Página inicial do sistema.
+
+Exibe os treinos cadastrados no banco de dados em formato de cards.
+
+Ao clicar em um card, é aberto um dialog com os exercícios daquele treino.
+
+### src/NovoTreino.html
+
+Página para criação de um novo treino.
+
+O usuário preenche o título, seleciona o dia da semana e adiciona os exercícios com nome, séries, repetições e kg.
+
+Ao concluir, os dados são enviados para a API e o treino é salvo no banco.
+
+---
+
+## Arquivos JavaScript
+
+### api.js
+
+Camada de comunicação com o backend.
+
+Contém todas as funções de requisição HTTP:
+
+```text
+getTreinos()
+createTreino()
+updateTreino()
+deleteTreino()
+
+getExercicios()
+createExercicio()
+updateExercicio()
+deleteExercicio()
+```
+
+Todas as funções utilizam `fetch` com `async/await`.
+
+A URL base da API fica definida neste arquivo:
+
+```javascript
+const BASE_URL = 'http://localhost:3000/api';
+```
+
+### Cards.js
+
+Responsável por carregar e renderizar os cards de treinos na tela inicial.
+
+Ao carregar a página, exibe um skeleton de loading enquanto busca os dados.
+
+```text
+Página carrega
+      ↓
+Skeleton aparece (3 cards de carregamento)
+      ↓
+getTreinos() busca os dados
+      ↓
+Skeletons são removidos
+      ↓
+Cards reais são inseridos na tela
+```
+
+Cada card exibe:
+
+```text
+Título do treino
+Quantidade de exercícios
+Botão para abrir o dialog
+```
+
+### dialog.js
+
+Controla o dialog de exercícios que abre ao clicar em um card.
+
+Funcionalidades:
+
+```text
+Abrir dialog ao clicar no card
+Exibir loading enquanto busca exercícios
+Carregar exercícios do banco via getExercicios()
+Fechar dialog com botão, clique fora ou tecla Escape
+Modo de edição com botão Editar / Salvar
+```
+
+No modo de edição é possível:
+
+```text
+Alterar nome, séries e repetições dos exercícios
+Adicionar novos exercícios
+Excluir exercícios existentes
+```
+
+O campo de kg é sempre editável, sem precisar entrar no modo de edição.
+
+Ao salvar, as operações enviadas para a API são:
+
+```text
+updateExercicio() - para exercícios existentes alterados
+createExercicio() - para novos exercícios adicionados
+deleteExercicio() - para exercícios excluídos
+```
+
+O reload da página ao fechar o dialog só acontece se houve alguma mudança real, como:
+
+```text
+Exercício adicionado
+Exercício excluído
+Exercício atualizado
+Kg alterado
+```
+
+### novoTreino.js
+
+Controla a lógica da página de criação de treino.
+
+Funcionalidades:
+
+```text
+Seleção de dia da semana
+Adição de linhas de exercícios
+Remoção de linhas de exercícios
+Validação dos campos obrigatórios
+Envio do treino para a API
+```
+
+A validação impede o envio se:
+
+```text
+O título não for preenchido
+Não houver pelo menos um exercício com nome
+Séries ou repetições estiverem em branco
+```
+
+As mensagens de validação são personalizadas em português:
+
+```text
+"Informe o número de séries"
+"Informe o número de repetições"
+"O valor mínimo é 1"
+```
+
+Enquanto o treino está sendo salvo, o botão exibe:
+
+```text
+Salvando...
+```
+
+---
+
+## Layout e responsividade
+
+A página inicial exibe os cards em um grid com 3 colunas.
+
+Em telas menores, o grid se adapta automaticamente:
+
+```text
+Acima de 860px  → 3 colunas
+Entre 560-860px → 2 colunas
+Abaixo de 560px → 1 coluna
+```
+
+Os arquivos de estilo são separados por responsabilidade:
+
+```text
+index.css  → layout geral e grid de cards
+cards.css  → estilo dos cards e skeleton de loading
+dialog.css → estilo do dialog de exercícios
+navbar.css → barra de navegação
+plano.css  → página de novo treino
+```
+
+---
+
+## Loading
+
+O frontend possui feedback visual de carregamento em três momentos.
+
+### Carregamento dos cards
+
+Ao abrir a página, três cards skeleton aparecem com animação shimmer enquanto os treinos são buscados no banco.
+
+### Carregamento dos exercícios
+
+Ao abrir um card, um spinner aparece dentro do dialog enquanto os exercícios são carregados da API.
+
+### Salvando treino
+
+Ao clicar em Concluir na página de novo treino, o botão é desabilitado e exibe:
+
+```text
+Salvando...
+```
+
+---
+
+## Como executar o frontend
+
+Para rodar o frontend localmente, é necessário ter o backend rodando primeiro.
+
+Com o backend ativo, abra o arquivo:
+
+```text
+FrontEnd/index.html
+```
+
+Utilizando o Live Server do VS Code ou qualquer servidor local.
+
+Se estiver usando o Live Server, o frontend ficará disponível em:
+
+```text
+http://localhost:5500
+```
+
+O backend precisa estar rodando em:
+
+```text
+http://localhost:3000
+```
+
+Para ajustar a URL da API, altere o arquivo:
+
+```text
+FrontEnd/Js/api.js
+```
+
+A variável:
+
+```javascript
+const BASE_URL = 'http://localhost:3000/api';
+```
+
+deve apontar para o endereço onde o backend está rodando.
+
+---
+
+## Resumo
+
+Para executar o frontend:
+
+```text
+1. Ter o backend rodando na porta 3000
+2. Abrir FrontEnd/index.html com Live Server
+3. Acessar http://localhost:5500
+```
+
+Com o backend e o frontend rodando ao mesmo tempo, o sistema estará funcionando completamente.

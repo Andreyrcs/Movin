@@ -2,8 +2,9 @@ header h1 {
     color: white;
 }
 header section div.card {
-    width: 250px;
-    height: 130px;
+    width: 300px;
+    height: auto;
+    padding: 15px;
     border-radius: 15px;
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(14px);
@@ -17,6 +18,9 @@ header section div.card {
         box-shadow 0.25s ease,
         border-color 0.25s ease;
     cursor: pointer;
+    text-overflow: ellipsis;
+
+      overflow: hidden;
 }
 
 header section div.card:hover {
@@ -28,7 +32,8 @@ header section div.card:hover {
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 header section div.cardAdd {
-    width: 250px;
+    width: 300px;
+    padding: 15px;
     height: 130px;
     border-radius: 15px;
     border: 1.5px dashed rgba(255, 255, 255, 0.2);
@@ -64,11 +69,11 @@ header section div.cardAdd div.container_add {
     align-items: center;
 }
 header section div.cardAdd div.container_add p {
-     text-decoration: none;
+    text-decoration: none;
     border-bottom: none;
     box-shadow: none;
 }
-a.test{
+a.test {
     text-decoration: none;
 }
 section div.card div.container_card {
@@ -80,6 +85,8 @@ section div.card div.container_card {
     margin-top: 15px;
     margin-left: 30px;
     color: white;
+
+
 }
 section div.card div.container_card div.button_card {
     width: 100%;
@@ -116,7 +123,45 @@ section div.card div.container_card div.button_card button:hover {
         background 0.2s ease;
 }
 
-/* ── Responsivo ─────────────────────────────────────── */
+.card-skeleton {
+    pointer-events: none;
+    overflow: hidden;
+    position: relative;
+}
+.card-skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+.skeleton-line {
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.skeleton-title { width: 55%; height: 20px; }
+.skeleton-sub   { width: 38%; height: 14px; }
+.skeleton-btn   { width: 70px; height: 30px; margin-top: 20px; margin-left: auto; }
+
+@media (max-width: 1069px) {
+    header section div.card,
+    header section div.cardAdd {
+        width: 250px;
+        height: 120px;
+    }
+}
+
 @media (max-width: 900px) {
     header section div.card,
     header section div.cardAdd {

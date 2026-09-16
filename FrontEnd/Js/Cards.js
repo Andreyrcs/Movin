@@ -1,31 +1,50 @@
-// Configuração equivalente às props do componente React original
-// const card = document.getElementById('tiltCard');
-// const glow = document.getElementById('spotlightGlow');
+const section = document.querySelector('header section');
+const cardAddLink = document.querySelector('a.test');
 
-// const tiltLimit = parseFloat(card.dataset.tiltLimit); // ângulo máximo de tilt
-// const scale = parseFloat(card.dataset.scale); // escala no hover
-// const perspective = parseFloat(card.dataset.perspective); // distância da perspectiva
-// const effect = card.dataset.effect; // "gravitate" ou "evade"
-// const dir = effect === 'evade' ? -1 : 1;
+async function carregarTreinos() {
+    const skeletons = [1, 2, 3].map(() => {
+        const el = document.createElement('div');
+        el.classList.add('card', 'card-skeleton');
+        el.innerHTML = `
+            <div class="container_card">
+                <div class="skeleton-line skeleton-title"></div>
+                <div class="skeleton-line skeleton-sub"></div>
+                <div class="skeleton-line skeleton-btn"></div>
+            </div>
+        `;
+        section.insertBefore(el, cardAddLink);
+        return el;
+    });
 
-// function resetTransform() {
-//     card.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-// }
+    try {
+        const treinos = await getTreinos();
+        skeletons.forEach((s) => s.remove());
+        treinos.forEach((treino) => {
+            section.insertBefore(criarCard(treino), cardAddLink);
+        });
+    } catch (err) {
+        skeletons.forEach((s) => s.remove());
+        console.error('[Cards] Erro ao carregar treinos:', err);
+    }
+}
 
-// card.addEventListener('pointermove', (e) => {
-//     const rect = card.getBoundingClientRect();
-//     const px = (e.clientX - rect.left) / rect.width;
-//     const py = (e.clientY - rect.top) / rect.height;
+function criarCard(treino) {
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.dataset.id = treino.id;
+    div.dataset.titulo = treino.titulo;
+    div.innerHTML = `
+        <div class="container_card">
+            <div class="text_card">
+                <h2>${treino.titulo}</h2>
+                <p>${treino.totalExercicios} Exercício${treino.totalExercicios !== 1 ? 's' : ''}</p>
+            </div>
+            <div class="button_card">
+                <button>></button>
+            </div>
+        </div>
+    `;
+    return div;
+}
 
-//     const xRot = (py - 0.5) * (tiltLimit * 2) * dir;
-//     const yRot = (px - 0.5) * -(tiltLimit * 2) * dir;
-
-//     card.style.transform = `perspective(${perspective}px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale3d(${scale}, ${scale}, ${scale})`;
-
-//     glow.style.left = `${px * 100}%`;
-//     glow.style.top = `${py * 100}%`;
-// });
-
-// card.addEventListener('pointerleave', resetTransform);
-
-// resetTransform();
+carregarTreinos();

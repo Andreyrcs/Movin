@@ -269,6 +269,31 @@
     color: rgba(239, 68, 68, 0.80);
 }
 
+.dialog-loading {
+    text-align: center;
+    padding: 28px 0;
+    color: rgba(255, 255, 255, 0.30);
+    font-size: 0.84rem;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.dialog-loading::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-top-color: rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
 .btn-add-exercise {
     display: none;
     width: 100%;

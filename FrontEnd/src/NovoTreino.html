@@ -34,7 +34,7 @@
                     <div class="rowtitle">
                         <div class="first_option">
                             <h1>Título:</h1>
-                            <input class="new_exercice" type="text" />
+                            <input class="new_exercice" type="text" maxlength="30" />
                         </div>
                         <div class="second_option">
                             <h1>Dia da Semana:</h1>
@@ -61,13 +61,13 @@
                         </div>
                         <div class="rowtext">
                             <div class="armazen_input">
-                                <input class="name new_exercice" type="text" />
+                                <input class="name new_exercice" type="text" maxlength="40" />
 
-                                <input class="serie new_exercice" type="text" />
+                                <input class="serie new_exercice" type="number" min="1" required/>
 
-                                <input class="reps new_exercice" type="text" />
+                                <input class="reps new_exercice" type="number" min="1" required/>
 
-                                <input class="kg new_exercice" type="text" />
+                                <input class="kg new_exercice" type="number" min="0" />
                             </div>
                             <div class="stash_button">
                                 <svg
